@@ -188,6 +188,9 @@ function(cxx_library_with_type name type cxx_flags)
     endif()
     target_link_libraries(${name} PUBLIC ${threads_spec})
   endif()
+  if( COMMAND make_universal )
+      make_universal( ${name} )
+  endif()
 endfunction()
 
 ########################################################################
