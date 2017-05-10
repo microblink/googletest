@@ -161,6 +161,7 @@ endmacro()
 # Defines the gtest & gtest_main libraries.  User tests should link
 # with one of them.
 function(cxx_library_with_type name type cxx_flags)
+    cmake_policy( SET CMP0063 NEW )
   # type can be either STATIC or SHARED to denote a static or shared library.
   # ARGN refers to additional arguments after 'cxx_flags'.
   add_library(${name} ${type} ${ARGN})
