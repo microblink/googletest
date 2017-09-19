@@ -5369,6 +5369,25 @@ void ParseGoogleTestFlagsOnly(int* argc, wchar_t** argv) {
   ParseGoogleTestFlagsOnlyImpl(argc, argv);
 }
 
+#ifdef _MSC_VER
+
+// shamelessly copied from https://stackoverflow.com/a/28852798/213057
+int no_dialog_box_but_act_as_if_it_had_appeared_and_abort_was_clicked( int /* nRptType */,
+    char *szMsg,
+    int * /* retVal */ )
+{
+    fprintf( stderr, "CRT: %s\n", szMsg );
+
+    /* raise abort signal */
+    std::abort();
+
+    /* We usually won't get here, but it's possible that
+    SIGABRT was ignored.  So exit the program anyway. */
+    _exit( 3 );
+}
+
+#endif
+
 // The internal implementation of InitGoogleTest().
 //
 // The type parameter CharType can be instantiated to either char or
@@ -5377,6 +5396,15 @@ template <typename CharType>
 void InitGoogleTestImpl(int* argc, CharType** argv) {
   // We don't want to run the initialization code twice.
   if (GTestIsInitialized()) return;
+
+#ifdef _MSC_VER
+  // prevent jumping dialog when asserts are enabled and debugger is not present
+  // solution from https://stackoverflow.com/a/13943752/213057
+  if ( !IsDebuggerPresent() )
+  {
+      _CrtSetReportHook( no_dialog_box_but_act_as_if_it_had_appeared_and_abort_was_clicked );
+  }
+#endif
 
   if (*argc <= 0) return;
 
