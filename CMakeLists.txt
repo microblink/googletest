@@ -16,8 +16,12 @@ include(GNUInstallDirs)
 option(BUILD_GMOCK "Builds the googlemock subproject" ON)
 option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding googletest may want to turn this OFF.)" ON)
 
-if( ANDROID_STUDIO_WRAPPED_EXE )
-    add_definitions( -DGTEST_REDIRECT_TO_ANDROID_LOG )
+if ( ANDROID )
+    option(GTEST_REDIRECT_OUTPUT_TO_ANDROID_LOG "Redirect GTest output to Android Log" OFF)
+
+    if( GTEST_REDIRECT_OUTPUT_TO_ANDROID_LOG )
+        add_definitions( -DGTEST_REDIRECT_TO_ANDROID_LOG )
+    endif()
 endif()
 
 if(BUILD_GMOCK)
