@@ -9,8 +9,12 @@ option(BUILD_GTEST "Builds the googletest subproject" OFF)
 #Note that googlemock target already builds googletest
 option(BUILD_GMOCK "Builds the googlemock subproject" ON)
 
-if( ANDROID_STUDIO_WRAPPED_EXE )
-    add_definitions( -DGTEST_REDIRECT_TO_ANDROID_LOG )
+if ( ANDROID )
+    option(GTEST_REDIRECT_OUTPUT_TO_ANDROID_LOG "Redirect GTest output to Android Log" OFF)
+
+    if( GTEST_REDIRECT_OUTPUT_TO_ANDROID_LOG )
+        add_definitions( -DGTEST_REDIRECT_TO_ANDROID_LOG )
+    endif()
 endif()
 
 if(BUILD_GMOCK)
