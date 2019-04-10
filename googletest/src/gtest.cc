@@ -6024,6 +6024,11 @@ void InitGoogleTest(int* argc, wchar_t** argv) {
 #endif  // defined(GTEST_CUSTOM_INIT_GOOGLE_TEST_FUNCTION_)
 }
 
+void TerminateGoogleTest()
+{
+    internal::g_argvs.clear();
+}
+
 std::string TempDir() {
 #if defined(GTEST_CUSTOM_TEMPDIR_FUNCTION_)
   return GTEST_CUSTOM_TEMPDIR_FUNCTION_();

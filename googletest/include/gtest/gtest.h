@@ -1419,6 +1419,8 @@ GTEST_API_ void InitGoogleTest(int* argc, char** argv);
 // UNICODE mode.
 GTEST_API_ void InitGoogleTest(int* argc, wchar_t** argv);
 
+GTEST_API_ void TerminateGoogleTest();
+
 namespace internal {
 
 // Separate the error generating code from the code path to reduce the stack
