@@ -163,9 +163,9 @@ template <typename ... Args>
 int fprintf( FILE * const p_stream, char const * const fmt, Args ... args )
 {
     if ( p_stream == stderr )
-        __android_log_print( ANDROID_LOG_ERROR, "GTest", fmt, args... );
+        return __android_log_print( ANDROID_LOG_ERROR, "GTest", fmt, args... );
     else
-        ::fprintf( p_stream, fmt, args... );
+        return ::fprintf( p_stream, fmt, args... );
 }
 } // namespace internal
 using internal::vprintf;
