@@ -1491,6 +1491,8 @@ GTEST_API_ void InitGoogleTest(int* argc, char** argv);
 // UNICODE mode.
 GTEST_API_ void InitGoogleTest(int* argc, wchar_t** argv);
 
+GTEST_API_ void TerminateGoogleTest();
+
 // This overloaded version can be used on Arduino/embedded platforms where
 // there is no argc/argv.
 GTEST_API_ void InitGoogleTest();
