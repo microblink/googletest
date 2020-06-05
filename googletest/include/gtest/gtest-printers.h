@@ -284,14 +284,21 @@ void DefaultPrintNonContainerTo(const T& value, ::std::ostream* os) {
   // impossible to define #1 (e.g. when foo is ::std, defining
   // anything in it is undefined behavior unless you are a compiler
   // vendor.).
-  if constexpr ( std::is_same_v< T, char8_t > || std::is_same_v< T, char16_t > || std::is_same_v< T, char32_t > ) 
+  if constexpr
+  (
+#if __cpp_char8_t
+      std::is_same_v< T, char8_t  > ||
+#endif
+      std::is_same_v< T, char16_t > ||
+      std::is_same_v< T, char32_t >
+    )
   {
      *os << static_cast< char >( value );
-  } 
+  }
   else
   {
       *os << value;
-  } 
+  }
 }
 
 }  // namespace testing_internal
