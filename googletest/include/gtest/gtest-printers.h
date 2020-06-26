@@ -450,17 +450,40 @@ void DefaultPrintTo(WrapPrinterType<kPrintContainer> /* dummy */,
 // implementation-defined.  Therefore they will be printed as raw
 // bytes.)
 template <typename T>
-void DefaultPrintTo(WrapPrinterType<kPrintPointer> /* dummy */,
-                    T* p, ::std::ostream* os) {
-  if (p == nullptr) {
-    *os << "NULL";
-  } else {
-    // T is not a function type.  We just call << to print p,
-    // relying on ADL to pick up user-defined << for their pointer
-    // types, if any.
-    *os << p;
-  }
+void DefaultPrintTo
+(
+    WrapPrinterType<kPrintPointer> /* dummy */,
+    T* p,
+    ::std::ostream* os
+)
+{
+    if ( p == nullptr )
+    {
+        *os << "NULL";
+    }
+    else
+    {
+        if constexpr
+        (
+        #if __cpp_char8_t
+            std::is_same_v< std::decay_t< T >, char8_t > ||
+        #endif
+            std::is_same_v< std::decay_t< T >, char16_t > ||
+            std::is_same_v< std::decay_t< T >, char32_t >
+        )
+        {
+            *os << reinterpret_cast< char const * >( p );
+        }
+        else
+        {
+            // T is not a function type.  We just call << to print p,
+            // relying on ADL to pick up user-defined << for their pointer
+            // types, if any.
+            *os << p;
+        }
+    }
 }
+
 template <typename T>
 void DefaultPrintTo(WrapPrinterType<kPrintFunctionPointer> /* dummy */,
                     T* p, ::std::ostream* os) {

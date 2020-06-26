@@ -1681,6 +1681,58 @@ GTEST_API_ AssertionResult CmpHelperSTRNE(const char* s1_expression,
                                           const wchar_t* s1,
                                           const wchar_t* s2);
 
+// Helper function for *_STREQ on UTF16 strings.
+//
+// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+GTEST_API_ AssertionResult CmpHelperSTREQ(const char* s1_expression,
+                                          const char* s2_expression,
+                                          const char16_t* s1,
+                                          const char16_t* s2);
+
+// Helper function for *_STRNE on UTF16 strings.
+//
+// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+GTEST_API_ AssertionResult CmpHelperSTRNE(const char* s1_expression,
+                                          const char* s2_expression,
+                                          const char16_t* s1,
+                                          const char16_t* s2);
+
+// Helper function for *_STREQ on UTF32 strings.
+//
+// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+GTEST_API_ AssertionResult CmpHelperSTREQ(const char* s1_expression,
+                                          const char* s2_expression,
+                                          const char32_t* s1,
+                                          const char32_t* s2);
+
+// Helper function for *_STRNE on UTF32 strings.
+//
+// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+GTEST_API_ AssertionResult CmpHelperSTRNE(const char* s1_expression,
+                                          const char* s2_expression,
+                                          const char32_t* s1,
+                                          const char32_t* s2);
+
+#if __cpp_char8_t
+
+// Helper function for *_STREQ on UTF8 strings.
+//
+// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+GTEST_API_ AssertionResult CmpHelperSTREQ(const char* s1_expression,
+                                          const char* s2_expression,
+                                          const char8_t* s1,
+                                          const char8_t* s2);
+
+// Helper function for *_STRNE on UTF8 strings.
+//
+// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+GTEST_API_ AssertionResult CmpHelperSTRNE(const char* s1_expression,
+                                          const char* s2_expression,
+                                          const char8_t* s1,
+                                          const char8_t* s2);
+
+#endif
+
 }  // namespace internal
 
 // IsSubstring() and IsNotSubstring() are intended to be used as the
