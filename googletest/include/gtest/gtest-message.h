@@ -125,7 +125,37 @@ class GTEST_API_ Message {
     // overloads of << defined in the global namespace and those
     // visible via Koenig lookup are both exposed in this function.
     using ::operator <<;
-    *ss_ << val;
+    if constexpr
+    (
+#if __cpp_char8_t
+        std::is_same_v< T, char8_t > ||
+#endif
+        std::is_same_v< T, char16_t > || std::is_same_v< T, char32_t > )
+    {
+        *ss_ << static_cast< char >( val );
+    }
+    else if constexpr( std::is_array_v< T > )
+    {
+        if constexpr
+        (
+    #if __cpp_char8_t
+            std::is_same_v< std::decay_t< decltype( *val ) >, char8_t > ||
+    #endif
+            std::is_same_v< std::decay_t< decltype( *val ) >, char16_t > ||
+            std::is_same_v< std::decay_t< decltype( *val ) >, char32_t >
+        )
+        {
+            *ss_ << reinterpret_cast< char const * >( val );
+        }
+        else
+        {
+            *ss_ << val;
+        }
+    }
+    else
+    {
+      *ss_ << val;
+    }
     return *this;
   }
 
@@ -147,7 +177,21 @@ class GTEST_API_ Message {
     if (pointer == nullptr) {
       *ss_ << "(null)";
     } else {
-      *ss_ << pointer;
+        if constexpr
+        (
+    #if __cpp_char8_t
+            std::is_same_v< std::decay_t< decltype( *pointer ) >, char8_t > ||
+    #endif
+            std::is_same_v< std::decay_t< decltype( *pointer ) >, char16_t > ||
+            std::is_same_v< std::decay_t< decltype( *pointer ) >, char32_t >
+        )
+        {
+            *ss_ << reinterpret_cast< char const * >( pointer );
+        }
+        else
+        {
+            *ss_ << pointer;
+        }
     }
     return *this;
   }
