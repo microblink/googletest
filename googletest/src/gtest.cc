@@ -2086,6 +2086,50 @@ AssertionResult CmpHelperSTRNE
 
 #endif
 
+// Helper function for *_STREQ on signed char strings.
+AssertionResult CmpHelperSTREQ
+(
+    char        const * lhs_expression,
+    char        const * rhs_expression,
+    signed char const * lhs,
+    signed char const * rhs
+)
+{
+    if ( compareStrings( lhs, rhs ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return EqFailure
+    (
+        lhs_expression,
+        rhs_expression,
+        PrintToString(lhs),
+        PrintToString(rhs),
+        false
+    );
+}
+
+// Helper function for *_STRNE on UTF32 strings.
+AssertionResult CmpHelperSTRNE
+(
+    char        const * s1_expression,
+    char        const * s2_expression,
+    signed char const * s1,
+    signed char const * s2
+)
+{
+    if ( !compareStrings( s1, s2 ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return AssertionFailure() << "Expected: (" << s1_expression << ") != ("
+                              << s2_expression << "), actual: "
+                              << PrintToString(s1)
+                              << " vs " << PrintToString(s2);
+}
+
 // Compares two C strings, ignoring case.  Returns true if and only if they have
 // the same content.
 //

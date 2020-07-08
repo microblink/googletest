@@ -1733,6 +1733,22 @@ GTEST_API_ AssertionResult CmpHelperSTRNE(const char* s1_expression,
 
 #endif
 
+// Helper function for *_STREQ on signed char strings.
+//
+// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+GTEST_API_ AssertionResult CmpHelperSTREQ(const char* s1_expression,
+                                          const char* s2_expression,
+                                          const signed char* s1,
+                                          const signed char* s2);
+
+// Helper function for *_STRNE on signed char strings.
+//
+// INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+GTEST_API_ AssertionResult CmpHelperSTRNE(const char* s1_expression,
+                                          const char* s2_expression,
+                                          const signed char* s1,
+                                          const signed char* s2);
+
 }  // namespace internal
 
 // IsSubstring() and IsNotSubstring() are intended to be used as the

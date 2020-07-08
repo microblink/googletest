@@ -290,7 +290,8 @@ void DefaultPrintNonContainerTo(const T& value, ::std::ostream* os) {
       std::is_same_v< T, char8_t  > ||
 #endif
       std::is_same_v< T, char16_t > ||
-      std::is_same_v< T, char32_t >
+      std::is_same_v< T, char32_t > ||
+      std::is_same_v< T, signed char >
     )
   {
      *os << static_cast< char >( value );
@@ -469,7 +470,8 @@ void DefaultPrintTo
             std::is_same_v< std::decay_t< T >, char8_t > ||
         #endif
             std::is_same_v< std::decay_t< T >, char16_t > ||
-            std::is_same_v< std::decay_t< T >, char32_t >
+            std::is_same_v< std::decay_t< T >, char32_t > ||
+            std::is_same_v< std::decay_t< T >, signed char >
         )
         {
             *os << reinterpret_cast< char const * >( p );
