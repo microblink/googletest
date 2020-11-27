@@ -1,3 +1,5 @@
+# Copyright Google Inc.
+
 """Negative compilation tests for Google Mock macro MOCK_METHOD."""
 
 import os

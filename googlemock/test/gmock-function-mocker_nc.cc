@@ -1,3 +1,5 @@
+// Copyright Google Inc.
+
 #include "gmock/gmock.h"
 
 #include <memory>

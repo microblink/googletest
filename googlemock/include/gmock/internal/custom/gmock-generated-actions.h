@@ -2,6 +2,9 @@
 //     pump.py gmock-generated-actions.h.pump
 // DO NOT EDIT BY HAND!!!
 
+// Copyright Google Inc.
+// All rights reserved.
+
 // GOOGLETEST_CM0002 DO NOT DELETE
 
 #ifndef GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_GMOCK_GENERATED_ACTIONS_H_

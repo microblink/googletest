@@ -1,3 +1,5 @@
+// Copyright Google Inc.
+
 #include "gmock/internal/gmock-pp.h"
 
 // Static assertions.
