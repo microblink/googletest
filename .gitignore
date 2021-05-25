@@ -81,4 +81,4 @@ googlemock/gtest
 /googletest-distribution.sln
 /CMakeCache.txt
 /ALL_BUILD.vcxproj.filters
-/ALL_BUILD.vcxproj
+*.swp
