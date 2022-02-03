@@ -89,7 +89,7 @@
 # include <sys/timeb.h>  // NOLINT
 # include <sys/types.h>  // NOLINT
 # include <sys/stat.h>  // NOLINT
-
+# include <chrono>
 # if GTEST_OS_WINDOWS_MINGW
 // MinGW has gettimeofday() but not _ftime64().
 #  define GTEST_HAS_GETTIMEOFDAY_ 1
@@ -880,15 +880,9 @@ TimeInMillis GetTimeInMillis() {
   }
   return 0;
 #elif GTEST_OS_WINDOWS && !GTEST_HAS_GETTIMEOFDAY_
-  __timeb64 now;
-
-  // MSVC 8 deprecates _ftime64(), so we want to suppress warning 4996
-  // (deprecated function) there.
-  GTEST_DISABLE_MSC_DEPRECATED_PUSH_()
-  _ftime64(&now);
-  GTEST_DISABLE_MSC_DEPRECATED_POP_()
-
-  return static_cast<TimeInMillis>(now.time) * 1000 + now.millitm;
+    auto const now{ std::chrono::system_clock::now() };
+    auto const time_since_epoch{ now.time_since_epoch() };
+    return std::chrono::duration_cast<std::chrono::milliseconds>( time_since_epoch ).count();
 #elif GTEST_HAS_GETTIMEOFDAY_
   struct timeval now;
   gettimeofday(&now, nullptr);
