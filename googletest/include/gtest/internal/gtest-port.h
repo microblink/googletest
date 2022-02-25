@@ -477,7 +477,7 @@ typedef struct _RTL_CRITICAL_SECTION GTEST_CRITICAL_SECTION;
 // The user didn't tell us whether RTTI is enabled, so we need to
 // figure it out.
 
-# ifdef _MSC_VER
+# if defined( _MSC_VER ) && !defined( __clang__ )
 
 #ifdef _CPPRTTI  // MSVC defines this macro if and only if RTTI is enabled.
 #   define GTEST_HAS_RTTI 1
