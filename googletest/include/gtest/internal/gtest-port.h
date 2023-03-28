@@ -602,7 +602,7 @@ typedef struct _RTL_CRITICAL_SECTION GTEST_CRITICAL_SECTION;
 
 // Determines whether to support death tests.
 // pops up a dialog window that cannot be suppressed programmatically.
-#if (GTEST_OS_LINUX || GTEST_OS_CYGWIN || GTEST_OS_SOLARIS ||             \
+#if ((GTEST_OS_LINUX && !GTEST_OS_LINUX_ANDROID) || GTEST_OS_CYGWIN || GTEST_OS_SOLARIS ||             \
      (GTEST_OS_MAC && !GTEST_OS_IOS) ||                                   \
      (GTEST_OS_WINDOWS_DESKTOP && _MSC_VER) || GTEST_OS_WINDOWS_MINGW ||  \
      GTEST_OS_AIX || GTEST_OS_HPUX || GTEST_OS_OPENBSD || GTEST_OS_QNX || \
