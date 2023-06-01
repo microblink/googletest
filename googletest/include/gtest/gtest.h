@@ -59,11 +59,6 @@
 #include <type_traits>
 #include <vector>
 
-#include <Utils/disable_warnings.hpp>
-
-MB_DISABLE_WARNING_PUSH
-MB_DISABLE_WARNING_CLANG( "-Wdeprecated-copy" )
-
 #include "gtest/internal/gtest-internal.h"
 #include "gtest/internal/gtest-string.h"
 #include "gtest/gtest-death-test.h"
@@ -2566,6 +2561,5 @@ inline int RUN_ALL_TESTS() {
 }
 
 GTEST_DISABLE_MSC_WARNINGS_POP_()  //  4251
-MB_DISABLE_WARNING_POP
 
 #endif  // GOOGLETEST_INCLUDE_GTEST_GTEST_H_

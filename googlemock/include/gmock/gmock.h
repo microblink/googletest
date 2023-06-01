@@ -56,11 +56,6 @@
 //
 // where all clauses are optional and WillOnce() can be repeated.
 
-#include <Utils/disable_warnings.hpp>
-
-MB_DISABLE_WARNING_PUSH
-MB_DISABLE_WARNING_CLANG( "-Wdeprecated-copy" )
-
 #include "gmock/gmock-actions.h"
 #include "gmock/gmock-cardinalities.h"
 #include "gmock/gmock-function-mocker.h"
@@ -99,7 +94,5 @@ GTEST_API_ void InitGoogleMock(int* argc, wchar_t** argv);
 GTEST_API_ void InitGoogleMock();
 
 }  // namespace testing
-
-MB_DISABLE_WARNING_POP
 
 #endif  // GMOCK_INCLUDE_GMOCK_GMOCK_H_
