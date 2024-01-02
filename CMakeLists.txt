@@ -33,6 +33,11 @@ if ( ANDROID )
     endif()
 endif()
 
+if ( CLANG )
+    # char_traits< signed char > is deprecated, but we still need it until we switch MB::Utf8Char to char8_t instead of signed char
+    add_compile_options( -Wno-deprecated-declarations )
+endif()
+
 if(BUILD_GMOCK)
   add_subdirectory( googlemock )
 else()
