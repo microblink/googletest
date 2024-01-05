@@ -2387,6 +2387,5 @@ int RUN_ALL_TESTS() GTEST_MUST_USE_RESULT_;
 inline int RUN_ALL_TESTS() { return ::testing::UnitTest::GetInstance()->Run(); }
 
 GTEST_DISABLE_MSC_WARNINGS_POP_()  //  4251
-MB_DISABLE_WARNING_POP
 
 #endif  // GOOGLETEST_INCLUDE_GTEST_GTEST_H_

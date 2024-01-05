@@ -175,7 +175,6 @@ class GTEST_API_ Message {
     {
       *ss_ << val;
     }
-    *ss_ << val;
     return *this;
   }
 
