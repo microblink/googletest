@@ -7023,11 +7023,21 @@ void InitGoogleTestImpl(int* argc, CharType** argv) {
 #ifdef GTEST_HAS_ABSL
   absl::InitializeSymbolizer(g_argvs[0].c_str());
 
+// MB patch for preventing repeated call to absl::SetProgramUsageMessage from
+// Android Studio JUnit wrapper
+#ifdef __ANDROID__
+  static bool programUsageMessageSet = false;
+  if ( !programUsageMessageSet ) {
+#endif
   // When using the Abseil Flags library, set the program usage message to the
   // help message, but remove the color-encoding from the message first.
   absl::SetProgramUsageMessage(absl::StrReplaceAll(
       kColorEncodedHelpMessage,
       {{"@D", ""}, {"@R", ""}, {"@G", ""}, {"@Y", ""}, {"@@", "@"}}));
+#ifdef __ANDROID__
+  programUsageMessageSet = true;
+  }
+#endif
 #endif  // GTEST_HAS_ABSL
 
   ParseGoogleTestFlagsOnly(argc, argv);
