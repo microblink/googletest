@@ -2166,6 +2166,17 @@ namespace
         using StringView = std::basic_string_view< std::decay_t< T > >;
         return StringView{ lhs } == StringView{ rhs };
     }
+
+    // MB patch for signed char string comparison
+    template<>
+    bool compareStrings( signed char const * lhs, signed char const * rhs)
+    {
+        return compareStrings
+        (
+            reinterpret_cast< char const * >( lhs ),
+            reinterpret_cast< char const * >( rhs )
+        );
+    }
 }
 
 // Helper function for *_STREQ on UTF16 strings.
