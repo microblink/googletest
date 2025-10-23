@@ -118,7 +118,9 @@ cc_library(
         "googletest/include/gtest/*.h",
         "googlemock/include/gmock/*.h",
     ]),
-    copts = select({
+    copts = [
+        '-w',
+    ] + select({
         ":qnx": [],
         ":windows": [],
         ":emscripten_without_threads": [],
