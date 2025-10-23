@@ -2174,6 +2174,199 @@ AssertionResult CmpHelperSTRNE(const char* s1_expression,
          << "), actual: " << PrintToString(s1) << " vs " << PrintToString(s2);
 }
 
+namespace
+{
+    template< typename T >
+    bool compareStrings( T const * lhs, T const * rhs)
+    {
+        if ( lhs == nullptr ) return rhs == nullptr;
+        if ( rhs == nullptr ) return false;
+
+        using StringView = std::basic_string_view< std::decay_t< T > >;
+        return StringView{ lhs } == StringView{ rhs };
+    }
+}
+
+// Helper function for *_STREQ on UTF16 strings.
+AssertionResult CmpHelperSTREQ
+(
+    char     const * lhs_expression,
+    char     const * rhs_expression,
+    char16_t const * lhs,
+    char16_t const * rhs
+)
+{
+    if ( compareStrings( lhs, rhs ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return EqFailure
+    (
+        lhs_expression,
+        rhs_expression,
+        PrintToString(lhs),
+        PrintToString(rhs),
+        false
+    );
+}
+
+// Helper function for *_STRNE on UTF16 strings.
+AssertionResult CmpHelperSTRNE
+(
+    char     const * s1_expression,
+    char     const * s2_expression,
+    char16_t const * s1,
+    char16_t const * s2
+)
+{
+    if ( !compareStrings( s1, s2 ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return AssertionFailure() << "Expected: (" << s1_expression << ") != ("
+                              << s2_expression << "), actual: "
+                              << PrintToString(s1)
+                              << " vs " << PrintToString(s2);
+}
+
+// Helper function for *_STREQ on UTF32 strings.
+AssertionResult CmpHelperSTREQ
+(
+    char     const * lhs_expression,
+    char     const * rhs_expression,
+    char32_t const * lhs,
+    char32_t const * rhs
+)
+{
+    if ( compareStrings( lhs, rhs ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return EqFailure
+    (
+        lhs_expression,
+        rhs_expression,
+        PrintToString(lhs),
+        PrintToString(rhs),
+        false
+    );
+}
+
+// Helper function for *_STRNE on UTF32 strings.
+AssertionResult CmpHelperSTRNE
+(
+    char     const * s1_expression,
+    char     const * s2_expression,
+    char32_t const * s1,
+    char32_t const * s2
+)
+{
+    if ( !compareStrings( s1, s2 ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return AssertionFailure() << "Expected: (" << s1_expression << ") != ("
+                              << s2_expression << "), actual: "
+                              << PrintToString(s1)
+                              << " vs " << PrintToString(s2);
+}
+
+#if __cpp_char8_t
+
+// Helper function for *_STREQ on UTF8 strings.
+AssertionResult CmpHelperSTREQ
+(
+    char    const * lhs_expression,
+    char    const * rhs_expression,
+    char8_t const * lhs,
+    char8_t const * rhs
+)
+{
+    if ( compareStrings( lhs, rhs ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return EqFailure
+    (
+        lhs_expression,
+        rhs_expression,
+        PrintToString(lhs),
+        PrintToString(rhs),
+        false
+    );
+}
+
+// Helper function for *_STRNE on UTF32 strings.
+AssertionResult CmpHelperSTRNE
+(
+    char    const * s1_expression,
+    char    const * s2_expression,
+    char8_t const * s1,
+    char8_t const * s2
+)
+{
+    if ( !compareStrings( s1, s2 ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return AssertionFailure() << "Expected: (" << s1_expression << ") != ("
+                              << s2_expression << "), actual: "
+                              << PrintToString(s1)
+                              << " vs " << PrintToString(s2);
+}
+
+#endif
+
+// Helper function for *_STREQ on signed char strings.
+AssertionResult CmpHelperSTREQ
+(
+    char        const * lhs_expression,
+    char        const * rhs_expression,
+    signed char const * lhs,
+    signed char const * rhs
+)
+{
+    if ( compareStrings( lhs, rhs ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return EqFailure
+    (
+        lhs_expression,
+        rhs_expression,
+        PrintToString(lhs),
+        PrintToString(rhs),
+        false
+    );
+}
+
+// Helper function for *_STRNE on UTF32 strings.
+AssertionResult CmpHelperSTRNE
+(
+    char        const * s1_expression,
+    char        const * s2_expression,
+    signed char const * s1,
+    signed char const * s2
+)
+{
+    if ( !compareStrings( s1, s2 ) )
+    {
+        return AssertionSuccess();
+    }
+
+    return AssertionFailure() << "Expected: (" << s1_expression << ") != ("
+                              << s2_expression << "), actual: "
+                              << PrintToString(s1)
+                              << " vs " << PrintToString(s2);
+}
+
 // Compares two C strings, ignoring case.  Returns true if and only if they have
 // the same content.
 //
